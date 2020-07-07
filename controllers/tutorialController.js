@@ -65,7 +65,10 @@ exports.findAndUpdateById = (req, res) => {
         );
       }
       
-      res.send(tutorial);
+      res.send({
+        message: 'Successfully updated a tutorial',
+        tutorial
+      });
     })
     .catch((error) => res.status(500).send({
       message: 'Error occurred while find and updating a tutorial',
@@ -74,7 +77,35 @@ exports.findAndUpdateById = (req, res) => {
 };
 
 // Delete a Tutorial with the specified id in the request
+exports.findAndDeleteById = (req, res) => {
+  const { id } = req.params;
+
+  Tutorial.prototype.deleteOne(id)
+    .then((tutorial) => {
+      if (!tutorial) {
+        return res.status(404).send(
+          'Unable to find the tutorial to delete try'
+        );
+      }
+
+      res.send({
+        message: 'Successfully deleted tutorial',
+        tutorial
+      })
+    })
+    .catch((error) => res.status(500).send({
+      message: 'Error occurred while finding and deleting a tutorial',
+      error
+    }));
+};
 
 // Delete all Tutorials from the database.
+exports.deleteAll = (req, res) => {
+  Tutorial.prototype.delete()
+    .then((data) => res.send('Successfully deleted all tutorials'))
+    .catch((error) => res.status(500).send({
+      message: 'Error occurred deleting tutorials',
+      error
+    }));
+}
 
-// Find all published Tutorials

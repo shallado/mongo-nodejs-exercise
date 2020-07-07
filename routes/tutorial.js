@@ -12,6 +12,10 @@ const tutorialRouter = (app) => {
 
   router.post('/:id', tutorialController.findAndUpdateById);
 
+  router.delete('/:id', tutorialController.findAndDeleteById);
+
+  router.delete('/', tutorialController.deleteAll);
+
   app.use('/tutorials', router);
 }
 
