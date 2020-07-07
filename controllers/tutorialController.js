@@ -25,10 +25,32 @@ exports.findAll = (req, res) => {
 
       res.send(tutorials);
     })
-    .catch((error) => res.status(500).send(error))
+    .catch((error) => res.status(500).send({
+      message: 'Error occurred while finding tutorials',
+      error
+    }))
 };
 
 // Find a single Tutorial with an id
+exports.findById = (req, res) => {
+  const { id } = req.params;
+
+  Tutorial.prototype.findOne(id)
+    .then((tutorial) => {
+      if (!tutorial) {
+        return res.status(404).send('Unable to find tutorial try again');
+      }
+
+      res.send({
+        message: 'Successfully found tutorial',
+        tutorial
+      });
+    })
+    .catch((error) => res.send(500).send({
+      message: 'Error occurred while finding a tutorial',
+      error
+    }));
+}
 
 // Update a Tutorial by the id in the request
 
