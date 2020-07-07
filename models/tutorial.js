@@ -19,6 +19,16 @@ const tutorialModel = (db) => {
         .then((result) => result)
         .catch((err) => err);
     }
+
+    updateOne(id, updates) {
+      return db.collection('tutorials').findOneAndUpdate(
+        { _id: ObjectId(id) },
+        { $set: updates },
+        { returnOriginal: false }
+      )
+        .then((result) => result)
+        .catch((error) => error);
+    }
   }
 
   return Tutorial;

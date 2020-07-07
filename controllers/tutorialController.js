@@ -50,9 +50,28 @@ exports.findById = (req, res) => {
       message: 'Error occurred while finding a tutorial',
       error
     }));
-}
+};
 
 // Update a Tutorial by the id in the request
+exports.findAndUpdateById = (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+
+  Tutorial.prototype.updateOne(id, updates)
+    .then((tutorial) => {
+      if (!tutorial) {
+        return res.status(404).send(
+          'Unable to find tutorial to update try again'
+        );
+      }
+      
+      res.send(tutorial);
+    })
+    .catch((error) => res.status(500).send({
+      message: 'Error occurred while find and updating a tutorial',
+      error
+    }));
+};
 
 // Delete a Tutorial with the specified id in the request
 

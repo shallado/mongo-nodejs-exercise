@@ -10,6 +10,8 @@ const tutorialRouter = (app) => {
 
   router.get('/:id', tutorialController.findById);
 
+  router.post('/:id', tutorialController.findAndUpdateById);
+
   app.use('/tutorials', router);
 }
 
