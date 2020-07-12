@@ -109,3 +109,25 @@ exports.deleteAll = (req, res) => {
     }));
 }
 
+// Find all published Tutorials
+exports.findPublished = (req, res) => {
+  const { published } = req.query;
+  console.log(published);
+
+  Tutorial.prototype.find({
+      published
+    })
+    .then((tutorials) => {
+      if (tutorial.length === 0) {
+        return res.status(404).send('Unable to published tutorials try again');
+      }
+
+      res.send({
+        message: 'Successfully found published tutorials',
+        tutorials
+      });
+    })
+    .catch((error) => res.status(500).send(
+      `Error occurred while finding published tutorials \n ${error}`
+    ));
+}

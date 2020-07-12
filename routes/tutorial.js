@@ -6,6 +6,8 @@ const router = express.Router();
 const tutorialRouter = (app) => {
   router.post('/', tutorialController.create);
 
+  router.get('/', tutorialController.findPublished);
+
   router.get('/', tutorialController.findAll);
 
   router.get('/:id', tutorialController.findById);
